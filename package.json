@@ -4,7 +4,12 @@
   "preview": true,
   "description": "Flagsmith integration for React Single Page Applications (SPA)",
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "git+https://github.com/TheMagoo73/flagsmith-react.git"
+  },
+  "homepage": "https://github.com/TheMagoo73/flagsmith-react",
+  "bugs": {
+    "url": "https://github.com/TheMagoo73/flagsmith-react/issues"
   },
   "scripts": {
     "build": "npm run lint && rollup -c --environment NODE_ENV:production",

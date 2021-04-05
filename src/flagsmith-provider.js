@@ -1,26 +1,10 @@
 import React from 'react'
-import { createContext, useCallback, useContext, useEffect, useReducer } from 'react'
+import { useCallback, useEffect, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import flagsmith from 'flagsmith'
 
-const FlagsmithContext = createContext()
-
-const reducer = (state, action) => {
-  switch(action.type) {
-    case 'INITIALISED': {
-      return {...state, isLoading: false, isError: false}
-    }
-    case 'IDENTIFIED': {
-      return {...state, isIdentified: true}
-    }
-    case 'UNIDENTIFIED': {
-      return {...state, isIdentified: false}
-    }
-    case 'ERRORED': {
-      return {...state, isLoading: false, isError: true}
-    }
-  }
-}
+import FlagsmithContext from './flagsmith-context'
+import { reducer } from './reducer'
 
 const FlagsmithProvider = ({ environmentId, children }) => {
 
@@ -75,13 +59,4 @@ FlagsmithProvider.propTypes = {
   environmentId: PropTypes.string.isRequired
 }
 
-const useFlagsmith = () => {
-  const context = useContext(FlagsmithContext)
-  if(context === undefined) {
-    throw new Error('useFlagsmith must be used with in a FlagsmithProvider')
-  }
-
-  return context
-}
-
-export { FlagsmithProvider, useFlagsmith }
+export default FlagsmithProvider

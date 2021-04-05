@@ -1,20 +1,24 @@
 import babel from 'rollup-plugin-babel';
 import external from 'rollup-plugin-peer-deps-external';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import del from 'rollup-plugin-delete';
 import pkg from './package.json';
+import analyze from 'rollup-plugin-analyzer'
 
 export default {
   input: pkg.source,
   output: [
-    { file: pkg.main, format: 'cjs' },
-    { file: pkg.module, format: 'esm' }
+    {/*preserveModules: false, exports: 'named',*/ file: pkg.main, format: 'cjs' },
+    {/*preserveModules: false, exports: 'named',*/ file: pkg.module, format: 'esm' }
   ],
   plugins: [
     external(),
-    babel({
-      exclude: 'node_modules/**'
-    }),
-    del({ targets: ['dist/*']})
+    resolve(),
+    babel(),
+    commonjs(),
+    del({ targets: ['dist/*']}),
+    analyze
   ],
-  external: Object.keys(pkg.peerDependencies || {})
+  external: [ ...Object.keys({ ...pkg.peerDependencies } || {}), 'flagsmith', 'prop-types']
 }

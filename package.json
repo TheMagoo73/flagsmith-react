@@ -12,6 +12,7 @@
     "url": "https://github.com/TheMagoo73/flagsmith-react/issues"
   },
   "scripts": {
+    "test": "jest --coverage",
     "build": "npm run lint && rollup -c --environment NODE_ENV:production",
     "lint": "eslint --ext=js ./src",
     "prepack": "npm run build"
@@ -44,6 +45,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "glob": "^7.1.6",
+    "jest": "^26.6.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "rollup": "^2.7.2",

@@ -12,5 +12,8 @@ export const reducer = (state, action) => {
     case 'ERRORED': {
       return {...state, isLoading: false, isError: true}
     }
+    default: {
+      return {...state}
+    }
   }
 }

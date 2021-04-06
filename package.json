@@ -1,6 +1,6 @@
 {
   "name": "flagsmith-react",
-  "version": "0.0.2-alpha.1",
+  "version": "0.0.2-alpha.2",
   "preview": true,
   "description": "Flagsmith integration for React Single Page Applications (SPA)",
   "repository": {
@@ -24,7 +24,11 @@
     "SPA",
     "react"
   ],
-  "author": "",
+  "author": {
+    "name": "John Clarke",
+    "email": "themagoo@hotmail.co.uk",
+    "url": "https://medium.com/@johnclarke73"
+  },
   "license": "MIT",
   "peerDependencies": {
     "react": "^16.11.0 || ^17",

@@ -12,7 +12,7 @@
     "url": "https://github.com/TheMagoo73/flagsmith-react/issues"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "build": "npm run lint && rollup -c --environment NODE_ENV:production",
     "lint": "eslint --ext=js ./src",
     "prepack": "npm run build"

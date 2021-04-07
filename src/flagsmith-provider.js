@@ -41,6 +41,16 @@ const FlagsmithProvider = ({ environmentId, children }) => {
     }, []
   )
 
+  const logout = useCallback(
+    async () => {
+      try {
+        await flagsmith.logout()
+      } finally {
+        dispatch({type: 'UNIDENTIFIED'})  
+      }
+    }, []
+  )
+
   const hasFeature = useCallback(
     (key) => {
       return flagsmith.hasFeature(key)
@@ -54,7 +64,7 @@ const FlagsmithProvider = ({ environmentId, children }) => {
   )
 
   return (
-    <FlagsmithContext.Provider value={{...state, identify, hasFeature, getValue, subscribe: useSubscription}}>
+    <FlagsmithContext.Provider value={{...state, identify, hasFeature, getValue, subscribe: useSubscription, logout}}>
       {children}
     </FlagsmithContext.Provider>
   )

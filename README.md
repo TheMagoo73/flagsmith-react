@@ -4,9 +4,12 @@ Flagsmith SDK for React Single Page Applications (SPA).
 
 > This project is currently in Alpha development. It exposes a limited subset of the core Flagsmith SDK and is missing a number of 'production' elements such as better error handling, tests etc.
 
+[![npm version](https://badge.fury.io/js/flagsmith-react.svg)](https://badge.fury.io/js/flagsmith-react)
+
 ## Contents
 - [Installation](#installation)
 - [Getting Started](#getting-started)
+- [API Reference](#api-reference)
 
 ## Installation
 
@@ -79,3 +82,58 @@ function App() {
 
 export default App;
 ```
+
+## API Reference
+
+### useFlagsmith
+
+```javascript
+const {
+    isLoading,
+    isIdentified,
+    isError,
+    identify,
+    hasFeature,
+    getValue
+} = useFlagsmith();
+```
+
+Use the `useFlagsmith` hook in your components to access the Flagsmith state and methods.
+
+### isLoading: *boolean*
+
+True if the Flagsmith state is loading, false is the state is loaded and useable. You should not try accessing the state (i.e. feature flags and remote configuration) until this is false and the state is loaded.
+
+### isIdentified: *boolean*
+
+True if Flagsmith has been configured to use a specific identity when resolving flags and remote configuration, false otherwise.
+
+See [identify](#identify) for more information.
+
+### isError: *boolean*
+
+True if the Flagsmith integration is in an errored state (e.g. the server could not be reached). False otherwise.
+
+### identify
+
+```javascript
+await identify(identity)
+```
+
+Passes the supplied identity to the Flagsmith backend to be used when resolving feature flags and remote configuration. This causes an update in the state, which is an async action. Use the [isIdentified](isIdentified) flag to determine when the state has been re-loaded.
+
+### hasFeature
+
+```javascript
+hasFeature(key)
+```
+
+Determines is the feature specified `key` is set or not.
+
+### getValue
+
+```
+getValue(key)
+```
+
+Gets the current value of the remote configuration item specified by the `key`.

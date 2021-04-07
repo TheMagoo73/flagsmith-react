@@ -24,7 +24,11 @@
     "SPA",
     "react"
   ],
-  "author": "",
+  "author": {
+    "name": "John Clarke",
+    "email": "themagoo@hotmail.co.uk",
+    "url": "https://medium.com/@johnclarke73"
+  },
   "license": "MIT",
   "peerDependencies": {
     "react": "^16.11.0 || ^17",

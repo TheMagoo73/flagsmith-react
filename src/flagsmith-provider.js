@@ -6,15 +6,21 @@ import flagsmith from 'flagsmith'
 import FlagsmithContext from './flagsmith-context'
 import { reducer } from './reducer'
 
+import { EventEmitter } from './use-event-emitter'
+
 const FlagsmithProvider = ({ environmentId, children }) => {
 
   const [state, dispatch] = useReducer(reducer, { isLoading: true, isError: false, isIdentified: false })
+  const [emitter] = useState(new EventEmitter())
+
+  handleChange = useCallback(e => emitter.emit(e), [])
 
   useEffect(() => {
     (async () =>{
       try {
         await flagsmith.init({
-          environmentID: environmentId
+          environmentID: environmentId,
+          onChange: handleChange
         })
         dispatch({type: 'INITIALISED'})
       } catch {
@@ -48,7 +54,7 @@ const FlagsmithProvider = ({ environmentId, children }) => {
   )
 
   return (
-    <FlagsmithContext.Provider value={{...state, identify, hasFeature, getValue}}>
+    <FlagsmithContext.Provider value={{...state, identify, hasFeature, getValue, subscribe: emitter.useSubsription}}>
       {children}
     </FlagsmithContext.Provider>
   )

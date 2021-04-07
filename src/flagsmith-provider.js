@@ -86,7 +86,7 @@ const FlagsmithProvider = ({ environmentId, children }) => {
       subscribe: useSubscription, 
       logout,
       startListening,
-      startListening}}>
+      stopListening}}>
       {children}
     </FlagsmithContext.Provider>
   )

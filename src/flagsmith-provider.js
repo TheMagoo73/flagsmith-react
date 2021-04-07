@@ -11,9 +11,9 @@ import { useEventEmitter } from './use-event-emitter'
 const FlagsmithProvider = ({ environmentId, children }) => {
 
   const [state, dispatch] = useReducer(reducer, { isLoading: true, isError: false, isIdentified: false })
-  const [emitter] = useState(useEventEmitter())
+  const { emit, useSubsription } = useState(useEventEmitter())
 
-  handleChange = useCallback(e => emitter.emit(e), [emitter])
+  handleChange = useCallback(e => emit(e), [emit])
 
   useEffect(() => {
     (async () =>{
@@ -54,7 +54,7 @@ const FlagsmithProvider = ({ environmentId, children }) => {
   )
 
   return (
-    <FlagsmithContext.Provider value={{...state, identify, hasFeature, getValue, subscribe: emitter.useSubsription}}>
+    <FlagsmithContext.Provider value={{...state, identify, hasFeature, getValue, subscribe: useSubsription}}>
       {children}
     </FlagsmithContext.Provider>
   )

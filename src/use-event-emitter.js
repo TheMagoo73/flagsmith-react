@@ -6,7 +6,7 @@ export function useEventEmitter() {
     ref.current = {
       subscriptions: new Set(),  
       emit: (val) => {
-        for (const subscription of this.subscriptions) {
+        for (const subscription of ref.current.subscriptions) {
           subscription(val);
         }
       },
@@ -19,9 +19,9 @@ export function useEventEmitter() {
               callbackRef.current(val);
             }
           }
-          this.subscriptions.add(subscription);
+          ref.current.subscriptions.add(subscription);
           return () => {
-            this.subscriptions.delete(subscription);
+            ref.current.subscriptions.delete(subscription);
           };
         }, []);
       }

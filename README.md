@@ -94,7 +94,8 @@ const {
     isError,
     identify,
     hasFeature,
-    getValue
+    getValue,
+    subscribe
 } = useFlagsmith();
 ```
 
@@ -137,3 +138,63 @@ getValue(key)
 ```
 
 Gets the current value of the remote configuration item specified by the `key`.
+
+### subscribe(callback)
+
+Registers a callback with Flagsmith that will be triggered any time a new configuration is available, for example after loading is complete, or when a new user is identified. This can be used to update any configuration state in components using Flagsmith, per the following example.
+
+```javascript
+import { useEffect, useState } from 'react'
+import logo from './logo.svg';
+import './App.css';
+import { useFlagsmith } from 'flagsmith-react'
+
+function App() {
+  const { isLoading, isError, getValue, identify, subscribe } = useFlagsmith()
+  const [val, setVal] = useState()
+
+  useEffect(() => {
+    if(!isLoading) {
+      identify('someone@somewhere.com')
+    }
+  }, [isLoading, identify])
+
+  const handleChange = () => {
+    setVal( getValue('val') )
+  }
+
+  subscribe(handleChange)
+
+  return (
+    <>
+      {
+        !isLoading &&
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <p>
+              Edit <code>src/App.js</code> and save to reload.
+            </p>
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </a>
+            {
+              isError && <h3>Flagsmith failed to load</h3>
+            }
+            {
+              val && <h1>{val}</h1>
+            }
+          </header>
+        </div>
+      }
+    </>
+  );
+}
+
+export default App;
+```

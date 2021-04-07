@@ -111,6 +111,10 @@ True if Flagsmith has been configured to use a specific identity when resolving 
 
 See [identify](#identify) for more information.
 
+### isListening: *boolean*
+
+True if Flagsmith is configured to listen for updates. See [startListening](#startListening) for more details.
+
 ### isError: *boolean*
 
 True if the Flagsmith integration is in an errored state (e.g. the server could not be reached). False otherwise.
@@ -121,7 +125,15 @@ True if the Flagsmith integration is in an errored state (e.g. the server could 
 await identify(identity)
 ```
 
-Passes the supplied identity to the Flagsmith backend to be used when resolving feature flags and remote configuration. This causes an update in the state, which is an async action. Use the [isIdentified](isIdentified) flag to determine when the state has been re-loaded.
+Passes the supplied identity to the Flagsmith backend to be used when resolving feature flags and remote configuration. This causes an update in the state, which is an async action. Use the [isIdentified](#isIdentified) flag to determine when the state has been re-loaded, or use [subscribe](#subscribe) to receive an update notification.
+
+### logout
+
+```javascript
+await logout()
+```
+
+Remove any identifty associated with the Flagsmith client. Use the [isIdentified](#isIdentified) flag to determine when the state has been re-loaded, or use [subscribe](#subscribe) to receive an update notification.
 
 ### hasFeature
 
@@ -133,13 +145,31 @@ Determines is the feature specified `key` is set or not.
 
 ### getValue
 
-```
+```javascript
 getValue(key)
 ```
 
 Gets the current value of the remote configuration item specified by the `key`.
 
-### subscribe(callback)
+### startListening
+
+```javascript
+startListening(interval = 1000)
+```
+Begin listening for backend configuration changes. The polling interval is specified in mS. Use [isListening](#isListening) to determine the current listening state, and [subscribe](#subscribe) to be notified of updates.
+
+### stopListeing
+
+```javascript
+stopListening()
+```
+Stop listening (polling) for configuration changes.
+
+### subscribe
+
+```javascript
+subscribe(callback)
+```
 
 Registers a callback with Flagsmith that will be triggered any time a new configuration is available, for example after loading is complete, or when a new user is identified. This can be used to update any configuration state in components using Flagsmith, per the following example.
 

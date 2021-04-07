@@ -10,7 +10,7 @@ import { useEventEmitter } from './use-event-emitter'
 
 const FlagsmithProvider = ({ environmentId, children }) => {
 
-  const [state, dispatch] = useReducer(reducer, { isLoading: true, isError: false, isIdentified: false })
+  const [state, dispatch] = useReducer(reducer, { isLoading: true, isError: false, isIdentified: false, isListening: false })
   const { emit, useSubscription } = useEventEmitter()
 
   const handleChange = useCallback(e => emit(e), [emit])
@@ -41,6 +41,30 @@ const FlagsmithProvider = ({ environmentId, children }) => {
     }, []
   )
 
+  const logout = useCallback(
+    async () => {
+      try {
+        await flagsmith.logout()
+      } finally {
+        dispatch({type: 'UNIDENTIFIED'})  
+      }
+    }, []
+  )
+
+  const startListening = useCallback(
+    (interval = 1000) => {
+      flagsmith.startListening(interval)
+      dispatch({type: 'START_LISTENING'})
+    }, []
+  )
+
+  const stopListening = useCallback(
+    () => {
+      flagsmith.stopListening()
+      dispatch({type: 'STOP_LISTENING'})
+    }, []
+  )
+
   const hasFeature = useCallback(
     (key) => {
       return flagsmith.hasFeature(key)
@@ -54,7 +78,15 @@ const FlagsmithProvider = ({ environmentId, children }) => {
   )
 
   return (
-    <FlagsmithContext.Provider value={{...state, identify, hasFeature, getValue, subscribe: useSubscription}}>
+    <FlagsmithContext.Provider value={{
+      ...state, 
+      identify, 
+      hasFeature, 
+      getValue, 
+      subscribe: useSubscription, 
+      logout,
+      startListening,
+      stopListening}}>
       {children}
     </FlagsmithContext.Provider>
   )

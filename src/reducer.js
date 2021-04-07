@@ -12,6 +12,12 @@ export const reducer = (state, action) => {
     case 'ERRORED': {
       return {...state, isLoading: false, isError: true}
     }
+    case 'START_LISTENING': {
+      return {...state, isListening: true}
+    }
+    case 'STOP_LISTENING': {  
+      return {...state, isListening: false}
+    }
     default: {
       return {...state}
     }

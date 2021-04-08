@@ -65,9 +65,11 @@
   "files": [
     "src",
     "dist",
-    "./README.md"
+    "./README.md",
+    "index.d.ts"
   ],
   "main": "dist/flagsmith-react.cjs.js",
   "module": "dist/flagsmith-react.esm.js",
-  "source": "src/index.js"
+  "source": "src/index.js",
+  "types": "./index.d.ts"
 }

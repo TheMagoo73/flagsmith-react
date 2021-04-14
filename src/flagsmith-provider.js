@@ -8,6 +8,7 @@ import { reducer } from './reducer'
 import { useEventEmitter } from './use-event-emitter'
 
 import reactFlagsmith from 'flagsmith'
+import { unstable_renderSubtreeIntoContainer } from 'react-dom'
 
 const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith}) => {
 
@@ -33,21 +34,26 @@ const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith
 
   const identify = useCallback(
     async (identity) => {
+      let result = undefined
       try {
-        await flagsmith.identify(identity)
+        result = await flagsmith.identify(identity)
         dispatch({type: 'IDENTIFIED'})
       } catch {
         dispatch({type: 'UNIDENTIFIED'})
+      } finally {
+        return result
       }
     }, [flagsmith]
   )
 
   const logout = useCallback(
     async () => {
+      let result
       try {
-        await flagsmith.logout()
+        result = await flagsmith.logout()
       } finally {
         dispatch({type: 'UNIDENTIFIED'})  
+        return result
       }
     }, [flagsmith]
   )

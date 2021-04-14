@@ -1,6 +1,6 @@
 {
   "name": "flagsmith-react",
-  "version": "0.0.4-alpha.1",
+  "version": "0.1.1-alpha.3",
   "preview": true,
   "description": "Flagsmith integration for React Single Page Applications (SPA)",
   "repository": {
@@ -65,9 +65,11 @@
   "files": [
     "src",
     "dist",
-    "./README.md"
+    "./README.md",
+    "index.d.ts"
   ],
   "main": "dist/flagsmith-react.cjs.js",
   "module": "dist/flagsmith-react.esm.js",
-  "source": "src/index.js"
+  "source": "src/index.js",
+  "types": "./index.d.ts"
 }

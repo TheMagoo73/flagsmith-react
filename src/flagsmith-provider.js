@@ -1,14 +1,16 @@
 import React from 'react'
 import { useCallback, useEffect, useReducer } from 'react'
 import PropTypes from 'prop-types'
-import flagsmith from 'flagsmith'
 
 import FlagsmithContext from './flagsmith-context'
 import { reducer } from './reducer'
 
 import { useEventEmitter } from './use-event-emitter'
 
-const FlagsmithProvider = ({ environmentId, children }) => {
+import reactFlagsmith from 'flagsmith'
+import { unstable_renderSubtreeIntoContainer } from 'react-dom'
+
+const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith}) => {
 
   const [state, dispatch] = useReducer(reducer, { isLoading: true, isError: false, isIdentified: false, isListening: false })
   const { emit, useSubscription } = useEventEmitter()
@@ -28,53 +30,58 @@ const FlagsmithProvider = ({ environmentId, children }) => {
         dispatch({type: 'ERRORED'})
       }
     })()
-  }, [environmentId, handleChange])
+  }, [environmentId, handleChange, flagsmith])
 
   const identify = useCallback(
     async (identity) => {
+      let result = undefined
       try {
-        await flagsmith.identify(identity)
+        result = await flagsmith.identify(identity)
         dispatch({type: 'IDENTIFIED'})
       } catch {
         dispatch({type: 'UNIDENTIFIED'})
+      } finally {
+        return result
       }
-    }, []
+    }, [flagsmith]
   )
 
   const logout = useCallback(
     async () => {
+      let result
       try {
-        await flagsmith.logout()
+        result = await flagsmith.logout()
       } finally {
         dispatch({type: 'UNIDENTIFIED'})  
+        return result
       }
-    }, []
+    }, [flagsmith]
   )
 
   const startListening = useCallback(
     (interval = 1000) => {
       flagsmith.startListening(interval)
       dispatch({type: 'START_LISTENING'})
-    }, []
+    }, [flagsmith]
   )
 
   const stopListening = useCallback(
     () => {
       flagsmith.stopListening()
       dispatch({type: 'STOP_LISTENING'})
-    }, []
+    }, [flagsmith]
   )
 
   const hasFeature = useCallback(
     (key) => {
       return flagsmith.hasFeature(key)
-    }, []
+    }, [flagsmith]
   )
 
   const getValue = useCallback(
     (key) => {
       return flagsmith.getValue(key)
-    }, []
+    }, [flagsmith]
   )
 
   return (
@@ -94,7 +101,8 @@ const FlagsmithProvider = ({ environmentId, children }) => {
 
 FlagsmithProvider.propTypes = {
   children: PropTypes.any,
-  environmentId: PropTypes.string.isRequired
+  environmentId: PropTypes.string.isRequired,
+  flagsmith: PropTypes.object.isRequired
 }
 
 export default FlagsmithProvider

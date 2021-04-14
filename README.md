@@ -46,6 +46,27 @@ ReactDOM.render(
 );
 ```
 
+The `Flagsmith Provider` defaults to using the vanilla JavaScript Flagsmith SDK. To support alternative SDK, for example the React Native variant, a specific provider can be supplied as a parameter, for example
+
+```jsx
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {FlagsmithProvdider} from 'flagsmith-react';
+import flagsmith from 'react-native-flagsmith';
+import App from './App';
+
+ReactDOM.render(
+    <FlagsmithProvider
+        environmentId="YOUR_FLAGSMITH_ENVIRONMENT_ID"
+        flagsmith={ flagsmith }
+    >
+        <App />
+    </FlagsmithProvider>,
+    document.getElementById('app')
+);
+```
+
 Use the `useFlagsmith` hook in your components to access the Flagsmith state (`isLoading`, `isIdentified`, `isError`) and feature flag and remote configuration methods (`hasFeature`, `getValue` etc.) 
 
 

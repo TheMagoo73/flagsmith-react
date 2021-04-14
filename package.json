@@ -1,6 +1,6 @@
 {
   "name": "flagsmith-react",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.1-alpha.3",
   "preview": true,
   "description": "Flagsmith integration for React Single Page Applications (SPA)",
   "repository": {

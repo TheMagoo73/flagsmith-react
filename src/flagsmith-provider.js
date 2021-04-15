@@ -94,6 +94,30 @@ const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith
     }, [flagsmith]
   )
 
+  const getTrait = useCallback(
+    (key) => {
+      return flagsmith.getTrait(key)
+    }, [flagsmith]
+  )
+
+  const setTrait = useCallback(
+    async (key, value) => {
+      return flagsmith.setTrait(key, value)
+    }, [flagsmith]
+  )
+
+  const incrementTrait = useCallback(
+    async (key, incrementBy) => {
+      return flagsmith.incrementTrait(key, incrementBy)
+    }, [flagsmith]
+  )
+
+  const setTraits = useCallback(
+    async (traits) => {
+      return flagsmith.setTraits(traits)
+    }, [flagsmith]
+  )
+
   return (
     <FlagsmithContext.Provider value={{
       ...state, 
@@ -104,7 +128,11 @@ const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith
       logout,
       startListening,
       stopListening,
-      getFlags}}>
+      getFlags,
+      getTrait,
+      setTrait,
+      setTraits,
+      incrementTrait}}>
       {children}
     </FlagsmithContext.Provider>
   )

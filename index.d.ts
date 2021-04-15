@@ -61,7 +61,30 @@ export interface Flagsmith {
      * Force a re-evaluation and fetch of flags
      */
     getFlags:() => Promise<IFlags>
+
+    /**
+     * Get the value of a specific trait for the currently identified user
+     */
+    getTrait:(key:string) => string|number|boolean
+
+    /**
+     * Set the value of a trait for the current user. Triggers a fetch of the flags 
+     */
+    setTrait:(key: string, value: string|number|boolean) => Promise<IFlags>
+
+    /**
+     * Increment the value of a trait for the current user. Triggers a fetch of the flags
+     */
+    incrementTrait:(key: string, incrementBy: number) => Promise<IFlags>
+
+    /**
+     * Set a key value set of traits for a given user, triggers a fetch of the flags 
+     */
+    setTraits:(traits: Record<string, string|number|boolean>) => Promise<IFlags>
+
+
 }
+
 
 /**
  * Hook function to access Flagsmith functionality

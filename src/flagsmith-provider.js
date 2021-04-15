@@ -8,7 +8,6 @@ import { reducer } from './reducer'
 import { useEventEmitter } from './use-event-emitter'
 
 import reactFlagsmith from 'flagsmith'
-import { unstable_renderSubtreeIntoContainer } from 'react-dom'
 
 const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith}) => {
 
@@ -84,6 +83,17 @@ const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith
     }, [flagsmith]
   )
 
+  const getFlags = useCallback(
+    async () => {
+      let flags
+      try {
+        flags = await flagsmith.getFlags()
+      } finally {
+        return flags
+      }
+    }, [flagsmith]
+  )
+
   return (
     <FlagsmithContext.Provider value={{
       ...state, 
@@ -93,7 +103,8 @@ const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith
       subscribe: useSubscription, 
       logout,
       startListening,
-      stopListening}}>
+      stopListening,
+      getFlags}}>
       {children}
     </FlagsmithContext.Provider>
   )

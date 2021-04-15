@@ -56,6 +56,11 @@ export interface Flagsmith {
      * changes (i.e. new flag evaluations are available)
      */
     subscribe:(callback:Function) => void
+
+    /**
+     * Force a re-evaluation and fetch of flags
+     */
+    getFlags:() => Promise<IFlags>
 }
 
 /**

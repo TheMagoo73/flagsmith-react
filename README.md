@@ -106,6 +106,8 @@ export default App;
 
 ## API Reference
 
+> The `flagsmith-react` API is modelled on the Flagsmith Javascript integration, the documentation for which can be found [here](https://docs.flagsmith.com/clients/javascript/) for futher reference.
+
 ### useFlagsmith
 
 ```javascript

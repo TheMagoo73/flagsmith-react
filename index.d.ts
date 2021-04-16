@@ -1,3 +1,4 @@
+import React from 'react'
 import {IFlags} from 'flagsmith'
 
 export interface Flagsmith {
@@ -92,12 +93,15 @@ export interface Flagsmith {
 export function useFlagsmith (): Flagsmith
 
 declare module  "FlagsmithProvider" {
-    import React from 'react'
 
     interface FlagsmithProviderProps {
         environmentId: string  // Flagsmith environmentId
-        flagsmith: ?Object  // Optional Flagsmith implementation
-        children: React.ReactChildren  //
+        flagsmith?: Object  // Optional Flagsmith implementation
+        children?: React.ReactChildren  //
+        asyncStorge?: Object // Async storage implementation
+        cacheFlags?: boolean // Cache flags locally
+        defaultFlags?: IFlags // Default flags
+        preventFetch?: boolean // Prevent flags from being fetched
     }
 
     export const FlagsmithProvider: (props: FlagsmithProviderProps) => React.FunctionComponent<FlagsmithProviderProps>

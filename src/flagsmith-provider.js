@@ -9,7 +9,13 @@ import { useEventEmitter } from './use-event-emitter'
 
 import reactFlagsmith from 'flagsmith'
 
-const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith}) => {
+const FlagsmithProvider = ({ environmentId, 
+  children, 
+  asyncStorage, 
+  cacheFlags, 
+  defaultFlags, 
+  preventFetch, 
+  flagsmith = reactFlagsmith}) => {
 
   const [state, dispatch] = useReducer(reducer, { isLoading: true, isError: false, isIdentified: false, isListening: false })
   const { emit, useSubscription } = useEventEmitter()
@@ -21,7 +27,11 @@ const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith
       try {
         await flagsmith.init({
           environmentID: environmentId,
-          onChange: handleChange
+          onChange: handleChange,
+          asyncStorage,
+          cacheFlags,
+          defaultFlags,
+          preventFetch,
         })
         dispatch({type: 'INITIALISED'})
       } catch {
@@ -29,7 +39,13 @@ const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith
         dispatch({type: 'ERRORED'})
       }
     })()
-  }, [environmentId, handleChange, flagsmith])
+  }, [environmentId, 
+    handleChange, 
+    flagsmith, 
+    asyncStorage, 
+    cacheFlags, 
+    defaultFlags, 
+    preventFetch])
 
   const identify = useCallback(
     async (identity) => {
@@ -141,7 +157,11 @@ const FlagsmithProvider = ({ environmentId, children, flagsmith = reactFlagsmith
 FlagsmithProvider.propTypes = {
   children: PropTypes.any,
   environmentId: PropTypes.string.isRequired,
-  flagsmith: PropTypes.object.isRequired
+  flagsmith: PropTypes.object,
+  asyncStorage: PropTypes.object,
+  cacheFlags: PropTypes.bool,
+  defaultFlags: PropTypes.object,
+  preventFetch: PropTypes.bool
 }
 
 export default FlagsmithProvider

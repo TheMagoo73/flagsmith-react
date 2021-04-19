@@ -2,8 +2,6 @@
 
 Flagsmith SDK for React Single Page Applications (SPA).
 
-> This project is currently in Alpha development. It exposes a limited subset of the core Flagsmith SDK and is missing a number of 'production' elements such as better error handling, tests etc.
-
 [![npm version](https://badge.fury.io/js/flagsmith-react.svg)](https://badge.fury.io/js/flagsmith-react)
 
 ## Contents
@@ -107,6 +105,21 @@ export default App;
 ## API Reference
 
 > The `flagsmith-react` API is modelled on the Flagsmith Javascript integration, the documentation for which can be found [here](https://docs.flagsmith.com/clients/javascript/) for futher reference.
+
+### FlagsmithProvider
+
+```jsx
+  <FlagsmithProvider 
+    environmentId
+    flagsmith
+    asyncStorage
+    cacheFlags
+    defaultFlags
+    preventFetch>
+  </FlagsmithProvider>
+```
+
+Use the FlagsmithProvider component to wrap your application and allow child elements to access the Flagsmith functionality using the 'useFlagsmith' hook function.
 
 ### useFlagsmith
 
@@ -251,3 +264,43 @@ function App() {
 
 export default App;
 ```
+
+### getFlags
+
+```javascript
+await getFlags()
+```
+
+Forces a fetch of the current flags.
+
+### getTrait
+
+```javascript
+getTrait(key)
+```
+
+Can only be used once a user has been identified, to get the value of the specified trait for that user.
+
+### setTrait
+
+```javascript
+await setTrait(key, value)
+```
+
+Can only be used once a user has been identified, to set the value of the specified trait for that user.
+
+### setTraits
+
+```javascript
+await setTraits(traits)
+```
+
+Can only be used once a user has been identified, to set the value of the multiple traits for that user. Traits set to a value of `null` will be removed.
+
+### incrementTrait
+
+```javascript
+await incrementTrait(key, incrementBy)
+```
+
+Can only be used once a user has been identified, used to increment (or decrememnt) the specified trait for that user.

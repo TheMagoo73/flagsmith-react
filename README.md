@@ -264,3 +264,43 @@ function App() {
 
 export default App;
 ```
+
+### getFlags
+
+```javascript
+await getFlags()
+```
+
+Forces a fetch of the current flags.
+
+### getTrait
+
+```javascript
+getTrait(key)
+```
+
+Can only be used once a user has been identified, to get the value of the specified trait for that user.
+
+### setTrait
+
+```javascript
+await setTrait(key, value)
+```
+
+Can only be used once a user has been identified, to set the value of the specified trait for that user.
+
+### setTraits
+
+```javascript
+await setTraits(traits)
+```
+
+Can only be used once a user has been identified, to set the value of the multiple traits for that user. Traits set to a value of `null` will be removed.
+
+### incrementTrait
+
+```javascript
+await incrementTrait(key, incrementBy)
+```
+
+Can only be used once a user has been identified, used to increment (or decrememnt) the specified trait for that user.

@@ -53,9 +53,9 @@ const FlagsmithProvider = ({ environmentId,
       try {
         result = await flagsmith.identify(identity)
         dispatch({type: 'IDENTIFIED'})
+        return result
       } catch {
         dispatch({type: 'UNIDENTIFIED'})
-      } finally {
         return result
       }
     }, [flagsmith]
@@ -68,8 +68,8 @@ const FlagsmithProvider = ({ environmentId,
         result = await flagsmith.logout()
       } finally {
         dispatch({type: 'UNIDENTIFIED'})  
-        return result
       }
+      return result
     }, [flagsmith]
   )
 
@@ -101,12 +101,7 @@ const FlagsmithProvider = ({ environmentId,
 
   const getFlags = useCallback(
     async () => {
-      let flags
-      try {
-        flags = await flagsmith.getFlags()
-      } finally {
-        return flags
-      }
+      return await flagsmith.getFlags()
     }, [flagsmith]
   )
 

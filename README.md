@@ -31,7 +31,7 @@ Configure the SDK by wrapping your application in a `FlagsmithProvider` element:
 // src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {FlagsmithProvdider} from 'flagsmith-react';
+import {FlagsmithProvider} from 'flagsmith-react';
 import App from './App';
 
 ReactDOM.render(
@@ -50,7 +50,7 @@ The `Flagsmith Provider` defaults to using the vanilla JavaScript Flagsmith SDK.
 // src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {FlagsmithProvdider} from 'flagsmith-react';
+import {FlagsmithProvider} from 'flagsmith-react';
 import flagsmith from 'react-native-flagsmith';
 import App from './App';
 
@@ -104,7 +104,7 @@ export default App;
 
 ## API Reference
 
-> The `flagsmith-react` API is modelled on the Flagsmith Javascript integration, the documentation for which can be found [here](https://docs.flagsmith.com/clients/javascript/) for futher reference.
+> The `flagsmith-react` API is modelled on the Flagsmith Javascript integration, the documentation for which can be found [here](https://docs.flagsmith.com/clients/javascript/) for further reference.
 
 ### FlagsmithProvider
 
@@ -139,7 +139,7 @@ Use the `useFlagsmith` hook in your components to access the Flagsmith state and
 
 ### isLoading: *boolean*
 
-True if the Flagsmith state is loading, false is the state is loaded and useable. You should not try accessing the state (i.e. feature flags and remote configuration) until this is false and the state is loaded.
+True if the Flagsmith state is loading, false is the state is loaded and usable. You should not try accessing the state (i.e. feature flags and remote configuration) until this is false and the state is loaded.
 
 ### isIdentified: *boolean*
 
@@ -169,7 +169,7 @@ Passes the supplied identity to the Flagsmith backend to be used when resolving 
 await logout()
 ```
 
-Remove any identifty associated with the Flagsmith client. Use the [isIdentified](#isIdentified) flag to determine when the state has been re-loaded, or use [subscribe](#subscribe) to receive an update notification.
+Remove any identity associated with the Flagsmith client. Use the [isIdentified](#isIdentified) flag to determine when the state has been re-loaded, or use [subscribe](#subscribe) to receive an update notification.
 
 ### hasFeature
 
@@ -194,7 +194,7 @@ startListening(interval = 1000)
 ```
 Begin listening for backend configuration changes. The polling interval is specified in mS. Use [isListening](#isListening) to determine the current listening state, and [subscribe](#subscribe) to be notified of updates.
 
-### stopListeing
+### stopListening
 
 ```javascript
 stopListening()
@@ -303,4 +303,4 @@ Can only be used once a user has been identified, to set the value of the multip
 await incrementTrait(key, incrementBy)
 ```
 
-Can only be used once a user has been identified, used to increment (or decrememnt) the specified trait for that user.
+Can only be used once a user has been identified, used to increment (or decrement) the specified trait for that user.

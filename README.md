@@ -115,7 +115,8 @@ export default App;
     asyncStorage
     cacheFlags
     defaultFlags
-    preventFetch>
+    preventFetch
+    api>
   </FlagsmithProvider>
 ```
 

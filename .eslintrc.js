@@ -1,24 +1,29 @@
 module.exports = {
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-      ecmaFeatures: {
-        jsx: true,
-      },
+    "env": {
+        "browser": true,
+        "es2020": true
     },
-    settings: {
-      react: {
-        version: 'detect',
-      },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "prettier"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
     },
-    extends: [
-      'plugin:react/recommended',
-      'plugin:react-hooks/recommended',
+    "plugins": [
+        "react"
     ],
-    ignorePatterns: ['examples/**'],
-    overrides: [
-      {
-        files: ['*.js'],
-      },
-    ],
-  };
+    "rules": {
+    },
+    "settings": {
+        "react": {
+            "version": "16.8"
+        }
+    }
+};

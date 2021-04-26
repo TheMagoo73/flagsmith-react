@@ -53,7 +53,7 @@ export interface Flagsmith {
     getValue:(key:string) => string|number|boolean
 
     /**
-     * Attach a callback function that is notified whenever the Flagsmith state 
+     * Attach a callback function that is notified whenever the Flagsmith state
      * changes (i.e. new flag evaluations are available)
      */
     subscribe:(callback:Function) => void
@@ -69,7 +69,7 @@ export interface Flagsmith {
     getTrait:(key:string) => string|number|boolean
 
     /**
-     * Set the value of a trait for the current user. Triggers a fetch of the flags 
+     * Set the value of a trait for the current user. Triggers a fetch of the flags
      */
     setTrait:(key: string, value: string|number|boolean) => Promise<IFlags>
 
@@ -79,7 +79,7 @@ export interface Flagsmith {
     incrementTrait:(key: string, incrementBy: number) => Promise<IFlags>
 
     /**
-     * Set a key value set of traits for a given user, triggers a fetch of the flags 
+     * Set a key value set of traits for a given user, triggers a fetch of the flags
      */
     setTraits:(traits: Record<string, string|number|boolean>) => Promise<IFlags>
 
@@ -98,7 +98,7 @@ declare module  "FlagsmithProvider" {
         environmentId: string  // Flagsmith environmentId
         flagsmith?: Object  // Optional Flagsmith implementation
         children?: React.ReactChildren  //
-        asyncStorge?: Object // Async storage implementation
+        asyncStorage?: Object // Async storage implementation
         cacheFlags?: boolean // Cache flags locally
         defaultFlags?: IFlags // Default flags
         preventFetch?: boolean // Prevent flags from being fetched

@@ -9,13 +9,14 @@ import { useEventEmitter } from './use-event-emitter'
 
 import reactFlagsmith from 'flagsmith'
 
-const FlagsmithProvider = ({ environmentId, 
-  children, 
-  asyncStorage, 
-  cacheFlags, 
-  defaultFlags, 
-  preventFetch, 
-  flagsmith = reactFlagsmith}) => {
+const FlagsmithProvider = ({ environmentId,
+  children,
+  asyncStorage,
+  cacheFlags,
+  defaultFlags,
+  preventFetch,
+  flagsmith = reactFlagsmith,
+  api }) => {
 
   const [state, dispatch] = useReducer(reducer, { isLoading: true, isError: false, isIdentified: false, isListening: false })
   const { emit, useSubscription } = useEventEmitter()
@@ -26,6 +27,7 @@ const FlagsmithProvider = ({ environmentId,
     (async () =>{
       try {
         await flagsmith.init({
+          api,
           environmentID: environmentId,
           onChange: handleChange,
           asyncStorage,
@@ -35,17 +37,10 @@ const FlagsmithProvider = ({ environmentId,
         })
         dispatch({type: 'INITIALISED'})
       } catch {
-        console.log('Failed')
         dispatch({type: 'ERRORED'})
       }
     })()
-  }, [environmentId, 
-    handleChange, 
-    flagsmith, 
-    asyncStorage, 
-    cacheFlags, 
-    defaultFlags, 
-    preventFetch])
+  }, [environmentId, handleChange, flagsmith, asyncStorage, cacheFlags, defaultFlags, preventFetch, api])
 
   const identify = useCallback(
     async (identity) => {
@@ -67,7 +62,8 @@ const FlagsmithProvider = ({ environmentId,
       try {
         result = await flagsmith.logout()
       } finally {
-        dispatch({type: 'UNIDENTIFIED'})  
+        dispatch({type: 'UNIDENTIFIED'})
+        return result
       }
       return result
     }, [flagsmith]
@@ -131,11 +127,11 @@ const FlagsmithProvider = ({ environmentId,
 
   return (
     <FlagsmithContext.Provider value={{
-      ...state, 
-      identify, 
-      hasFeature, 
-      getValue, 
-      subscribe: useSubscription, 
+      ...state,
+      identify,
+      hasFeature,
+      getValue,
+      subscribe: useSubscription,
       logout,
       startListening,
       stopListening,
@@ -156,7 +152,8 @@ FlagsmithProvider.propTypes = {
   asyncStorage: PropTypes.object,
   cacheFlags: PropTypes.bool,
   defaultFlags: PropTypes.object,
-  preventFetch: PropTypes.bool
+  preventFetch: PropTypes.bool,
+  api: PropTypes.string,
 }
 
 export default FlagsmithProvider

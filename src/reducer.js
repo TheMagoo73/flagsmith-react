@@ -15,7 +15,7 @@ export const reducer = (state, action) => {
     case 'START_LISTENING': {
       return {...state, isListening: true}
     }
-    case 'STOP_LISTENING': {  
+    case 'STOP_LISTENING': {
       return {...state, isListening: false}
     }
     default: {

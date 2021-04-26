@@ -1,10 +1,10 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 
 export function useEventEmitter() {
   const ref = useRef();
   if (!ref.current) {
     ref.current = {
-      subscriptions: new Set(),  
+      subscriptions: new Set(),
       emit: (val) => {
         for (const subscription of ref.current.subscriptions) {
           subscription(val);
@@ -24,7 +24,7 @@ export function useEventEmitter() {
             ref.current.subscriptions.delete(subscription);
           };
         }, []);
-      }
+      },
     };
   }
   return ref.current;

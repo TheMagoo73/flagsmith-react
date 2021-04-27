@@ -31,6 +31,12 @@
     "email": "themagoo@hotmail.co.uk",
     "url": "https://medium.com/@johnclarke73"
   },
+  "contributors": [
+    {
+      "name": "Ramon Villain",
+      "url": "https://github.com/ramon-villain"
+    }
+  ],
   "license": "MIT",
   "peerDependencies": {
     "react": "^16.11.0 || ^17",

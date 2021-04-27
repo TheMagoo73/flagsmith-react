@@ -1,5 +1,5 @@
 import React from "react";
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 import PropTypes from "prop-types";
 
 import FlagsmithContext from "./flagsmith-context";
@@ -29,8 +29,12 @@ const FlagsmithProvider = ({
 
   const handleChange = useCallback((e) => emit(e), [emit]);
 
+  const isInitialised = useRef(false)
+
   useEffect(() => {
     (async () => {
+      if(isInitialised.current) return;
+      isInitialised.current = true;
       try {
         await flagsmith.init({
           api,
@@ -56,6 +60,7 @@ const FlagsmithProvider = ({
     defaultFlags,
     preventFetch,
     api,
+    isInitialised
   ]);
 
   const identify = useCallback(

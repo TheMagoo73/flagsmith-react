@@ -6,6 +6,7 @@ Flagsmith SDK for React Single Page Applications (SPA).
 [![Known Vulnerabilities](https://snyk.io/test/github/TheMagoo73/flagsmith-react/badge.svg)](https://snyk.io/test/github/TheMagoo73/flagsmith-react)
 ![CI Action](https://github.com/TheMagoo73/flagsmith-react/actions/workflows/node.js.yml/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/fc670ffb64ea77e9d0e3/maintainability)](https://codeclimate.com/github/TheMagoo73/flagsmith-react/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/TheMagoo73/flagsmith-react/badge.svg?branch=main)](https://coveralls.io/github/TheMagoo73/flagsmith-react?branch=main)
 
 ## Contents
 - [Installation](#installation)

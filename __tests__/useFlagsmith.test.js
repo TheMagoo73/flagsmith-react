@@ -57,6 +57,16 @@ describe("useFlagsmith", () => {
     expect(result.current.isIdentified).toBeTruthy();
   });
 
+  test("a valid inentify user with traits sets isIdentified to true", async () => {
+    const identify = jest.spyOn(flagsmith, "identify");
+
+    const { result } = renderHook(() => useFlagsmith(), { wrapper });
+
+    await act(() => result.current.identify("user_123", {foo: 'bar'}));
+    expect(identify).toHaveBeenCalledWith("user_123", {foo: 'bar'});
+    expect(result.current.isIdentified).toBeTruthy();
+  })
+
   test("an invalid identify user sets isIdentified to false", async () => {
     const identify = jest
       .spyOn(flagsmith, "identify")

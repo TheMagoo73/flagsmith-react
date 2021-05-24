@@ -163,10 +163,10 @@ True if the Flagsmith integration is in an errored state (e.g. the server could 
 ### identify
 
 ```javascript
-await identify(identity)
+await identify(identity, traits)
 ```
 
-Passes the supplied identity to the Flagsmith backend to be used when resolving feature flags and remote configuration. This causes an update in the state, which is an async action. Use the [isIdentified](#isIdentified) flag to determine when the state has been re-loaded, or use [subscribe](#subscribe) to receive an update notification.
+Passes the supplied identity to the Flagsmith backend to be used when resolving feature flags and remote configuration. This causes an update in the state, which is an async action. Use the [isIdentified](#isIdentified) flag to determine when the state has been re-loaded, or use [subscribe](#subscribe) to receive an update notification. Optionally suppply traits for the identified user.
 
 ### logout
 

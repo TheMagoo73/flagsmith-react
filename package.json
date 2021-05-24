@@ -43,7 +43,7 @@
     "react-dom": "^16.11.0 || ^17"
   },
   "dependencies": {
-    "flagsmith": "^1.2.2",
+    "flagsmith": "^1.4.1",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {

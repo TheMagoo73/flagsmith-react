@@ -46,6 +46,7 @@
     "react-dom": "^16.11.0 || ^17"
   },
   "dependencies": {
+    "@jcmagoo/react-event-emitter": "^1.0.3",
     "flagsmith": "^1.4.1",
     "prop-types": "^15.7.2"
   },

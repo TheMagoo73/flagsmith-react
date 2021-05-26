@@ -37,7 +37,8 @@
       "url": "https://github.com/ramon-villain"
     },
     {
-    } "name": "Mateusz Ciezczak"
+      "name": "Mateusz Ciezczak"
+    }
   ],
   "license": "MIT",
   "peerDependencies": {

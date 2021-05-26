@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import FlagsmithContext from "./flagsmith-context";
 import { reducer } from "./reducer";
 
-import { useEventEmitter } from "./use-event-emitter";
+import { useEventEmitter } from "@jcmagoo/react-event-emitter";
 
 import reactFlagsmith from "flagsmith";
 

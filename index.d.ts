@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { IFlags } from "flagsmith";
 
 export interface Flagsmith {
@@ -25,7 +25,7 @@ export interface Flagsmith {
   /**
    * Identify user, triggers a call to get flags if flagsmith.init has been called
    */
-  identify: (userId: string) => Promise<IFlags | undefined>;
+  identify: (userId: string, traits?: Record<string, string|number|boolean>) => Promise<IFlags | undefined>;
 
   /**
    * Clears the identity, triggers a call to getFlags
@@ -91,18 +91,14 @@ export interface Flagsmith {
  */
 export function useFlagsmith(): Flagsmith;
 
-declare module "FlagsmithProvider" {
-  interface FlagsmithProviderProps {
-    environmentId: string; // Flagsmith environmentId
-    flagsmith?: Object; // Optional Flagsmith implementation
-    children?: React.ReactChildren; //
-    asyncStorage?: Object; // Async storage implementation
-    cacheFlags?: boolean; // Cache flags locally
-    defaultFlags?: IFlags; // Default flags
-    preventFetch?: boolean; // Prevent flags from being fetched
-  }
+export declare type FlagsmithProviderProps = PropsWithChildren<{
+  environmentId: string; // Flagsmith environmentId
+  flagsmith?: Object; // Optional Flagsmith implementation
+  asyncStorage?: Object; // Async storage implementation
+  cacheFlags?: boolean; // Cache flags locally
+  defaultFlags?: IFlags; // Default flags
+  preventFetch?: boolean; // Prevent flags from being fetched
+  api?: string; // Flagsmith api url
+}>
 
-  export const FlagsmithProvider: (
-    props: FlagsmithProviderProps
-  ) => React.FunctionComponent<FlagsmithProviderProps>;
-}
+export declare function FlagsmithProvider({}: FlagsmithProviderProps): React.ReactElement;

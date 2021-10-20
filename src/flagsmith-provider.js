@@ -64,10 +64,12 @@ const FlagsmithProvider = ({
   ]);
 
   const identify = useCallback(
-    async (identity) => {
+    async (identity, traits) => {
       let result = undefined;
       try {
-        result = await flagsmith.identify(identity);
+        traits ?
+          result = await flagsmith.identify(identity, traits) :
+          result = await flagsmith.identify(identity);
         dispatch({ type: "IDENTIFIED" });
       } catch {
         dispatch({ type: "UNIDENTIFIED" });

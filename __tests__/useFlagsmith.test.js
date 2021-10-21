@@ -132,7 +132,7 @@ describe("useFlagsmith", () => {
     expect(getValue).toHaveBeenCalledWith("repo");
   });
 
-  test("you can get all flags using getFlags", async () => {
+  test("you can get flags using getFlags", async () => {
     const promise = Promise.resolve({
       repo: "flagsmith-react",
     });
@@ -142,6 +142,21 @@ describe("useFlagsmith", () => {
 
     expect(await result.current.getFlags()).toEqual({
       repo: "flagsmith-react",
+    });
+  });
+
+  test("you can get all flags using getAllFlags", async () => {
+    const promise = Promise.resolve({
+      repo: "flagsmith-react",
+      another: "Flag"
+    });
+    jest.spyOn(flagsmith, "getAllFlags").mockReturnValue(promise);
+
+    const { result } = renderHook(() => useFlagsmith(), { wrapper });
+
+    expect(await result.current.getAllFlags()).toEqual({
+      repo: "flagsmith-react",
+      another: "Flag"
     });
   });
 

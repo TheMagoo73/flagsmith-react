@@ -119,6 +119,13 @@ const FlagsmithProvider = ({
   const getFlags = useCallback(async () => {
     return await flagsmith.getFlags();
   }, [flagsmith]);
+  
+  const getAllFlags = useCallback(
+    () => {
+      return flagsmith.getAllFlags();
+    },
+    [flagsmith]
+  );
 
   const getTrait = useCallback(
     (key) => {
@@ -161,6 +168,7 @@ const FlagsmithProvider = ({
         startListening,
         stopListening,
         getFlags,
+        getAllFlags,
         getTrait,
         setTrait,
         setTraits,

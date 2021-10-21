@@ -1,6 +1,6 @@
 {
   "name": "flagsmith-react",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Flagsmith integration for React Single Page Applications (SPA)",
   "repository": {
     "type": "git",
@@ -38,6 +38,10 @@
     },
     {
       "name": "Mateusz Ciezczak"
+    },
+    {
+      "name": "Andrew Nagy",
+      "url": "https://github.com/tm1000"
     }
   ],
   "license": "MIT",

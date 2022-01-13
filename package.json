@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "flagsmith": "^1.5.0",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",

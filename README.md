@@ -85,7 +85,7 @@ function App() {
     } = useFlagsmith();
 
     if (isLoading) {
-        return <div>Flagsith state is loading...</div>
+        return <div>Flagsmith state is loading...</div>
     }
 
     if (isError) {
